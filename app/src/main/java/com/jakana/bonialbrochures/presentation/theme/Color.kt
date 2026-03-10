@@ -1,4 +1,4 @@
-package com.jakana.bonialbrochures.ui.theme
+package com.jakana.bonialbrochures.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

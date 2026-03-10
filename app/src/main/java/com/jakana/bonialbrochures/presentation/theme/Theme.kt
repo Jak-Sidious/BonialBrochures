@@ -1,6 +1,5 @@
-package com.jakana.bonialbrochures.ui.theme
+package com.jakana.bonialbrochures.presentation.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

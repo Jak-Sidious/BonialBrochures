@@ -1,4 +1,4 @@
-package com.jakana.bonialbrochures.ui.theme
+package com.jakana.bonialbrochures.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
