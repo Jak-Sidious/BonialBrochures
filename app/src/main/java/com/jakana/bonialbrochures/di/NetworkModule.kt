@@ -29,7 +29,8 @@ object NetworkModule {
         .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
         .build()
 
-    @Provides @Singleton
-    fun provideApi(retrofit: Retrofit): ShelfApiService
-    = retrofit.create(ShelfApiService::class.java)
+    @Provides
+    @Singleton
+    fun provideApi(retrofit: Retrofit): ShelfApiService =
+        retrofit.create(ShelfApiService::class.java)
 }

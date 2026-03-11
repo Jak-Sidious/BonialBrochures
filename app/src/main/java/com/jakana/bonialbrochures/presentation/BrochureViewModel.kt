@@ -17,7 +17,9 @@ class BrochureViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<BrochureUiState>(BrochureUiState.Loading)
     val uiState: StateFlow<BrochureUiState> = _uiState.asStateFlow()
 
-    init { loadBrochures() }
+    init {
+        loadBrochures()
+    }
 
     fun loadBrochures() {
         viewModelScope.launch {

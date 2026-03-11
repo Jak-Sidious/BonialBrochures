@@ -14,7 +14,8 @@ data class ShelfResponse(
 )
 
 @JsonClass(generateAdapter = true)
-data class Embedded(val contents: List<ContentItem>
+data class Embedded(
+    val contents: List<ContentItem>
 )
 
 @JsonClass(generateAdapter = true)
@@ -57,12 +58,16 @@ class ContentItemAdapter {
                             while (reader.hasNext()) {
                                 when (reader.nextName()) {
                                     "id" -> contentId = reader.nextLong()
-                                    "brochureImage" -> brochureImage = if (reader.peek() == JsonReader.Token.NULL) {
-                                        reader.skipValue(); null
-                                    } else reader.nextString()
-                                    "distance" -> distance = if (reader.peek() == JsonReader.Token.NULL) {
-                                        reader.skipValue(); null
-                                    } else reader.nextDouble()
+                                    "brochureImage" -> brochureImage =
+                                        if (reader.peek() == JsonReader.Token.NULL) {
+                                            reader.skipValue(); null
+                                        } else reader.nextString()
+
+                                    "distance" -> distance =
+                                        if (reader.peek() == JsonReader.Token.NULL) {
+                                            reader.skipValue(); null
+                                        } else reader.nextDouble()
+
                                     "publisher" -> {
                                         var pid = ""
                                         var pname = ""
@@ -77,15 +82,18 @@ class ContentItemAdapter {
                                         reader.endObject()
                                         publisher = Publisher(pid, pname)
                                     }
+
                                     else -> reader.skipValue()
                                 }
                             }
                             reader.endObject()
                             content = BrochureContent(contentId, brochureImage, distance, publisher)
                         }
+
                         else -> reader.skipValue()
                     }
                 }
+
                 else -> reader.skipValue()
             }
         }

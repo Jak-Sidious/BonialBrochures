@@ -24,7 +24,9 @@ class BrochureRepositoryImpl @Inject constructor(
                             distance = it.distance
                         )
                     }
-                } catch (e: Exception) { null }
+                } catch (e: Exception) {
+                    null
+                }
             }
 
     }
