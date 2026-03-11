@@ -28,6 +28,5 @@ class BrochureRepositoryImpl @Inject constructor(
                     null
                 }
             }
-
     }
 }

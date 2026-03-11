@@ -72,6 +72,7 @@ di/             — Hilt NetworkModule, RepositoryModule
 ```
 app/src/main/java/com/jakana/bonialbrochures/
 ├── BonialApp.kt
+├── MainActivity.kt
 ├── data/
 │   ├── model/
 │   │   ├── ShelfResponse.kt
@@ -89,7 +90,7 @@ app/src/main/java/com/jakana/bonialbrochures/
 │   ├── repository/
 │   │   └── BrochureRepository.kt
 │   └── usecase/
-│       └── GetFilteredBrochuresUseCase.kt
+│       └── GetFilteredBrochureUseCase.kt
 └── presentation/
     ├── BrochureUiState.kt
     ├── BrochureViewModel.kt
