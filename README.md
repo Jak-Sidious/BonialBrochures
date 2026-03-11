@@ -3,7 +3,6 @@
 A native Android application that fetches and displays retailer brochures from the Bonial shelf API, built with Clean Architecture, MVVM, and Jetpack Compose.
 
 ---
-
 ## Features
 
 - Fetches brochures from the Bonial shelf API
