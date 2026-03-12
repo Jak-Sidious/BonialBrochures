@@ -3,6 +3,18 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    id("jacoco")
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+tasks.withType<Test> {
+    configure<JacocoTaskExtension> {
+        isIncludeNoLocationClasses = true
+        excludes = listOf("jdk.internal.*")
+    }
 }
 
 android {
@@ -39,7 +51,6 @@ android {
     buildFeatures {
         compose = true
     }
-    testOptions { unitTests.all { it.useJUnitPlatform() } }
 }
 
 dependencies {
@@ -51,8 +62,13 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.retrofit)
+    implementation(libs.converter.moshi)
+    implementation(libs.moshi.kotlin)
     implementation(libs.coil.compose)
     implementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.junit)
@@ -65,4 +81,51 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+}
+
+tasks.register<JacocoReport>("jacocoTestReport") {
+    dependsOn("testDebugUnitTest")
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+
+    val excludes = listOf(
+        "**/R.class",
+        "**/R$*.class",
+        "**/BuildConfig.*",
+        "**/Manifest*.*",
+        "**/*Test*.*",
+        "android/**/*.*",
+        "**/Hilt_*.*",
+        "**/*_HiltModules*.*",
+        "**/*_Factory*.*",
+        "**/*_MembersInjector*.*",
+        "**/DaggerBonialApp*.*",
+        "**/BonialApp_HiltComponents*.*",
+        "**/MainActivity.class",
+        "**/presentation/ui/**",
+        "**/presentation/theme/**",
+        "**/di/**",
+        "**/*Module*.*",
+        "**/*Screen*.*",
+        "**/*Card*.*",
+        "**/*Grid*.*",
+        "**/*Theme*.*",
+        "**/BonialApp*.*",
+        "**/MainActivity*.*",
+    )
+
+    val buildDir = layout.buildDirectory.get().asFile
+
+    val asmTree = fileTree(
+        "$buildDir/intermediates/classes/debug/transformDebugClassesWithAsm/dirs"
+    ) { exclude(excludes) }
+
+    sourceDirectories.setFrom(files("${projectDir}/src/main/java"))
+    classDirectories.setFrom(files(asmTree))
+    executionData.setFrom(fileTree(buildDir) {
+        include("jacoco/testDebugUnitTest.exec")
+    })
 }
